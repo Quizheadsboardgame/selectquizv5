@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colorful Iframes with Minimization</title>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Baloo 2', cursive;
+            background-color: #38B6FF;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh; /* Reduced height to make room for the Reset button */
+            width: 100vw;
+            position: relative;
+        }
+
+        .iframe-container {
+            position: relative;
+            width: 90%;
+            height: 90%;
+            margin: 20px;
+            display: none;
+            z-index: 0;
+        }
+
+        .iframe-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .iframe-container.active {
+            display: block;
+        }
+
+        .minimized {
+            width: 100px;
+            height: 100px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            text-align: center;
+            border: 3px solid black;
+            border-radius: 10px;
+            position: fixed;
+            z-index: 999;
+            transition: transform 0.2s;
+        }
+
+        .red { background-color: #F34529; top: 10px; left: 10px; }
+        .green { background-color: #7DCD58; top: 10px; right: 10px; }
+        .orange { background-color: #FA8F4C; bottom: 10px; left: 10px; }
+        .purple { background-color: #8254E1; bottom: 10px; right: 10px; }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border: none;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        .reset-btn {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            background-color: white;
+            border: 3px solid black;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        .reset-btn:hover {
+            background-color: #eee;
+        }
+
+        /* Logo styling */
+        .logo {
+            position: fixed;
+            top: 0; /* Adjusted to move the logo higher up */
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1001;
+            height: 160px; /* Doubled size of the logo */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Logo Image, positioned at the top and always visible -->
+    <img class="logo" src="https://i.imgur.com/qLzuPTL.png" alt="My Logo">
+
+    <div class="container">
+
+        <!-- Red iframe -->
+        <div class="iframe-container red-container active">
+            <button class="close-btn" onclick="minimize('red')">X</button>
+            <iframe id="red-iframe" src="https://quizheadsboardgame.github.io/selectquizv4/"></iframe>
+        </div>
+
+        <!-- Green iframe -->
+        <div class="iframe-container green-container">
+            <button class="close-btn" onclick="minimize('green')">X</button>
+            <iframe id="green-iframe" src="https://quizheadsboardgame.github.io/selectquizv4/"></iframe>
+        </div>
+
+        <!-- Orange iframe -->
+        <div class="iframe-container orange-container">
+            <button class="close-btn" onclick="minimize('orange')">X</button>
+            <iframe id="orange-iframe" src="https://quizheadsboardgame.github.io/selectquizv4/"></iframe>
+        </div>
+
+        <!-- Purple iframe -->
+        <div class="iframe-container purple-container">
+            <button class="close-btn" onclick="minimize('purple')">X</button>
+            <iframe id="purple-iframe" src="https://quizheadsboardgame.github.io/selectquizv4/"></iframe>
+        </div>
+
+    </div>
+
+    <!-- Minimized buttons -->
+    <div class="minimized red" onclick="maximize('red')" id="red-box">Please select</div>
+    <div class="minimized green" onclick="maximize('green')" id="green-box">Please select</div>
+    <div class="minimized orange" onclick="maximize('orange')" id="orange-box">Please select</div>
+    <div class="minimized purple" onclick="maximize('purple')" id="purple-box">Please select</div>
+
+    <!-- Reset Button -->
+    <button class="reset-btn" onclick="reset()">Reset</button>
+
+    <script>
+        // Minimize function: Hides iframe and keeps minimized square visible
+        function minimize(color) {
+            document.querySelector('.' + color + '-container').classList.remove('active');
+        }
+
+        // Maximize function: Shows iframe and hides other iframes
+        function maximize(color) {
+            const containers = document.querySelectorAll('.iframe-container');
+            containers.forEach(container => container.classList.remove('active'));
+            document.querySelector('.' + color + '-container').classList.add('active');
+            clearBoxText(color);
+        }
+
+        // Clear the text of minimized boxes once a quiz is selected
+        function clearBoxText(color) {
+            document.getElementById(color + '-box').innerText = '';
+        }
+
+        // Reset function: Resets all iframes and minimized boxes
+        function reset() {
+            document.querySelectorAll('.iframe-container').forEach(container => container.classList.remove('active'));
+            document.querySelector('.red-container').classList.add('active');
+
+            // Reset the text on all boxes
+            document.getElementById('red-box').innerText = 'Please select';
+            document.getElementById('green-box').innerText = 'Please select';
+            document.getElementById('orange-box').innerText = 'Please select';
+            document.getElementById('purple-box').innerText = 'Please select';
+        }
+
+        // By default, the first iframe (red) is open
+        document.addEventListener('DOMContentLoaded', () => {
+            maximize('red'); // Ensure the red iframe is open initially
+        });
+    </script>
+
+</body>
+</html>
