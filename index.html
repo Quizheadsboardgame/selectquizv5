@@ -16,7 +16,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 80vh; /* Reduced height to make room for the Home button */
+            height: 80vh; /* Reduced height */
             width: 100vw;
             position: relative;
         }
@@ -76,24 +76,7 @@
             z-index: 1000;
         }
 
-        .home-btn {
-            position: fixed;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 10px 20px;
-            background-color: white;
-            border: 3px solid black;
-            border-radius: 10px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            z-index: 1000;
-        }
-
-        .home-btn:hover {
-            background-color: #eee;
-        }
+        /* Removed the Home Button styling */
 
         /* Logo styling */
         .logo {
@@ -102,7 +85,7 @@
             left: 50%;
             transform: translateX(-50%);
             z-index: 1001;
-            height: 160px; /* Doubled size of the logo */
+            height: 320px; /* Doubled size of the logo */
         }
 
         /* Bounce animation */
@@ -161,9 +144,6 @@
     <div class="minimized orange" onclick="maximize('orange')" id="orange-box"></div>
     <div class="minimized purple" onclick="maximize('purple')" id="purple-box"></div>
 
-    <!-- Home Button -->
-    <button class="home-btn" onclick="goHome()">Home</button>
-
     <script>
         // Minimize function: Hides iframe and keeps minimized square visible
         function minimize(color) {
@@ -188,20 +168,6 @@
         function clearBoxText(color) {
             document.getElementById(color + '-box').innerText = '';
         }
-
-        // Go Home function: Redirects to the specified URL
-        function goHome() {
-            window.location.href = "https://quizheads.co.uk";
-        }
-
-        // By default, the first iframe (red) is open
-        document.addEventListener('DOMContentLoaded', () => {
-            maximize('red'); // Ensure the red iframe is open initially
-        });
-    </script>
-
-</body>
-</html>
 
         // By default, the first iframe (red) is open
         document.addEventListener('DOMContentLoaded', () => {
