@@ -41,8 +41,8 @@
         }
 
         .minimized {
-            width: 100px;
-            height: 100px;
+            width: 200px; /* Double the size */
+            height: 200px; /* Double the size */
             cursor: pointer;
             display: flex;
             justify-content: center;
@@ -51,7 +51,7 @@
             border-radius: 10px;
             position: fixed;
             z-index: 999;
-            transition: transform 0.2s;
+            transition: transform 0.2s ease-in-out;
             background-size: cover; /* Ensure image covers the button area */
             background-position: center; /* Center the image */
             background-repeat: no-repeat; /* Prevent repeating the image */
@@ -104,6 +104,22 @@
             z-index: 1001;
             height: 160px; /* Doubled size of the logo */
         }
+
+        /* Bounce animation */
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Add bounce effect when clicked */
+        .minimized.active {
+            animation: bounce 0.5s ease-in-out;
+        }
+
     </style>
 </head>
 <body>
@@ -160,6 +176,12 @@
             containers.forEach(container => container.classList.remove('active'));
             document.querySelector('.' + color + '-container').classList.add('active');
             clearBoxText(color);
+
+            // Apply bounce effect to the minimized button
+            document.getElementById(color + '-box').classList.add('active');
+            setTimeout(() => {
+                document.getElementById(color + '-box').classList.remove('active');
+            }, 500); // Remove the bounce class after the animation completes
         }
 
         // Clear the text of minimized boxes once a quiz is selected
@@ -171,6 +193,15 @@
         function goHome() {
             window.location.href = "https://quizheads.co.uk";
         }
+
+        // By default, the first iframe (red) is open
+        document.addEventListener('DOMContentLoaded', () => {
+            maximize('red'); // Ensure the red iframe is open initially
+        });
+    </script>
+
+</body>
+</html>
 
         // By default, the first iframe (red) is open
         document.addEventListener('DOMContentLoaded', () => {
