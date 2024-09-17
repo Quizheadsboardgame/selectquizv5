@@ -16,7 +16,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 80vh; /* Reduced height to make room for the Reset button */
+            height: 80vh; /* Reduced height to make room for the Home button */
             width: 100vw;
             position: relative;
         }
@@ -47,21 +47,22 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            color: white;
-            font-weight: bold;
-            font-size: 16px;
-            text-align: center;
             border: 3px solid black;
             border-radius: 10px;
             position: fixed;
             z-index: 999;
             transition: transform 0.2s;
+            background-size: cover; /* Ensure image covers the button area */
+            background-position: center; /* Center the image */
+            background-repeat: no-repeat; /* Prevent repeating the image */
+            background-color: transparent; /* Ensure no background color */
         }
 
-        .red { background-color: #F34529; top: 10px; left: 10px; }
-        .green { background-color: #7DCD58; top: 10px; right: 10px; }
-        .orange { background-color: #FA8F4C; bottom: 10px; left: 10px; }
-        .purple { background-color: #8254E1; bottom: 10px; right: 10px; }
+        /* Minimized button images */
+        .red { background-image: url('https://i.imgur.com/RaS1oar.png'); top: 10px; left: 10px; }
+        .green { background-image: url('https://i.imgur.com/HXXQ5NI.png'); top: 10px; right: 10px; }
+        .orange { background-image: url('https://i.imgur.com/bRFX1lp.png'); bottom: 10px; left: 10px; }
+        .purple { background-image: url('https://i.imgur.com/VZUUjyW.png'); bottom: 10px; right: 10px; }
 
         .close-btn {
             position: absolute;
@@ -75,7 +76,7 @@
             z-index: 1000;
         }
 
-        .reset-btn {
+        .home-btn {
             position: fixed;
             bottom: 10px;
             left: 50%;
@@ -90,7 +91,7 @@
             z-index: 1000;
         }
 
-        .reset-btn:hover {
+        .home-btn:hover {
             background-color: #eee;
         }
 
@@ -139,13 +140,13 @@
     </div>
 
     <!-- Minimized buttons -->
-    <div class="minimized red" onclick="maximize('red')" id="red-box">Please select</div>
-    <div class="minimized green" onclick="maximize('green')" id="green-box">Please select</div>
-    <div class="minimized orange" onclick="maximize('orange')" id="orange-box">Please select</div>
-    <div class="minimized purple" onclick="maximize('purple')" id="purple-box">Please select</div>
+    <div class="minimized red" onclick="maximize('red')" id="red-box"></div>
+    <div class="minimized green" onclick="maximize('green')" id="green-box"></div>
+    <div class="minimized orange" onclick="maximize('orange')" id="orange-box"></div>
+    <div class="minimized purple" onclick="maximize('purple')" id="purple-box"></div>
 
-    <!-- Reset Button -->
-    <button class="reset-btn" onclick="reset()">Reset</button>
+    <!-- Home Button -->
+    <button class="home-btn" onclick="goHome()">Home</button>
 
     <script>
         // Minimize function: Hides iframe and keeps minimized square visible
@@ -166,16 +167,9 @@
             document.getElementById(color + '-box').innerText = '';
         }
 
-        // Reset function: Resets all iframes and minimized boxes
-        function reset() {
-            document.querySelectorAll('.iframe-container').forEach(container => container.classList.remove('active'));
-            document.querySelector('.red-container').classList.add('active');
-
-            // Reset the text on all boxes
-            document.getElementById('red-box').innerText = 'Please select';
-            document.getElementById('green-box').innerText = 'Please select';
-            document.getElementById('orange-box').innerText = 'Please select';
-            document.getElementById('purple-box').innerText = 'Please select';
+        // Go Home function: Redirects to the specified URL
+        function goHome() {
+            window.location.href = "https://quizheads.co.uk";
         }
 
         // By default, the first iframe (red) is open
